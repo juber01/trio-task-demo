@@ -4,8 +4,7 @@ pipeline{
             stage('On Jenkins Server'){
                 steps{
                     sh '''
-                    docker login --username juber81 --password Litr@Pr0$
-                    docker images
+                    Echo "hello World"
                     '''
                 }
             }
@@ -13,10 +12,13 @@ pipeline{
                 steps{
                     sh '''
                     ssh -i "~/.ssh/id_rsa" jenkins@10.154.0.26 << EOF
-                    rm -rf LBG-14-freestyle-project
-                    git clone git@github.com:juber01/LBG-14-freestyle-project.git
-                    echo "Hello, jenkins is working"
-                    hostname
+                    docker image pull juber81/mynginx
+                    docker image pull juber81/flask-app
+                    docker image pull juber81/mysql
+                    docker network create trio
+                    docker run -d --network trio --name mysql juber81/mysql:latest
+                    docker run -d --network trio --name flask-app juber81/flask-app:latest
+                    docker run -d --network trio --name mynginx juber81/mynginx:latest
                     '''
                 }
             }
