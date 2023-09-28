@@ -18,7 +18,7 @@ pipeline{
                     docker network create trio
                     docker run -d --network trio --name mysql juber81/mysql:latest
                     docker run -d --network trio --name flask-app juber81/flask-app:latest
-                    docker run -d --network trio --name mynginx juber81/mynginx:latest
+                    docker run -d -p 80:80 --network trio --name mynginx juber81/mynginx:latest
                     '''
                 }
             }
