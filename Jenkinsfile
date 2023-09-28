@@ -32,7 +32,7 @@ pipeline{
                     docker rmi gcr.io/lbg-mea-14/ja-mysql:${BUILD_NUMBER}
                     docker rmi gcr.io/lbg-mea-14/ja-flask-app:latest
                     docker rmi gcr.io/lbg-mea-14/ja-flask-app:${BUILD_NUMBER}
-                    docker rmi gcr.io/lbg-mea-14ja-/mynginx:latest
+                    docker rmi gcr.io/lbg-mea-14/ja-mynginx:latest
                     docker rmi gcr.io/lbg-mea-14/ja-mynginx:${BUILD_NUMBER}
                     '''
                 }
