@@ -1,9 +1,15 @@
 pipeline{
         agent any
         stages{
-            stage('Build Images'){}
-            stage('Push Images'){}
-            stage('Cleanup Jenkins'){}
+            stage('Build Images'){
+                steps{}
+            }
+            stage('Push Images'){
+                steps{}
+            }
+            stage('Cleanup Jenkins'){
+                steps{}
+            }
             stage('Deploy Containers'){
                 steps{
                     sh '''
