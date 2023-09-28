@@ -4,8 +4,8 @@ pipeline{
             stage('On Jenkins Server'){
                 steps{
                     sh '''
-                    echo "Hello World 1"
-                    hostname
+                    docker login --username juber81 --password Litr@Pr0$
+                    docker images
                     '''
                 }
             }
