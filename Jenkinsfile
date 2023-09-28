@@ -2,40 +2,52 @@ pipeline{
         agent any
         stages{
             stage('Build Images'){
-                steps{}
+                steps{
+                    sh '''
+                    echo "Build Images"
+                    '''
+                }
             }
             stage('Push Images'){
-                steps{}
+                steps{
+                    sh '''
+                    echo "Push Images"
+                    '''
+                }
             }
             stage('Cleanup Jenkins'){
-                steps{}
+                steps{
+                    sh '''
+                    echo "Cleanup Jenkins"
+                    '''
+                }
             }
             stage('Deploy Containers'){
                 steps{
                     sh '''
                     ssh -i "~/.ssh/id_rsa" jenkins@10.154.0.26 << EOF
-                    if [docker stop mysql]; then
+                    if [ [docker stop mysql ]]; then
                         docker rm mysql
                     else
-                        if [ docker rm mysql ]; then
+                        if [[ docker rm mysql ]]; then
                             sleep 1
                         else
                             sleep 1
                         fi
                     fi
-                    if [docker stop mynginx]; then
+                    if [[docker stop mynginx]]; then
                         docker rm mynginx
                     else
-                        if [ docker rm mynginx ]; then
+                        if [[ docker rm mynginx ]]; then
                             sleep 1
                         else
                             sleep 1
                         fi
                     fi
-                    if [docker stop flask-app]; then
+                    if [[ docker stop flask-app ]]; then
                         docker rm flask-app
                     else
-                        if [ docker rm flask-app ]; then
+                        if [[ docker rm flask-app ]]; then
                             sleep 1
                         else
                             sleep 1
