@@ -26,33 +26,9 @@ pipeline{
                 steps{
                     sh '''
                     ssh -i "~/.ssh/id_rsa" jenkins@10.154.0.26 << EOF
-                    if [ [docker stop mysql ]]; then
-                        docker rm mysql
-                    else
-                        if [[ docker rm mysql ]]; then
-                            sleep 1
-                        else
-                            sleep 1
-                        fi
-                    fi
-                    if [[docker stop mynginx]]; then
-                        docker rm mynginx
-                    else
-                        if [[ docker rm mynginx ]]; then
-                            sleep 1
-                        else
-                            sleep 1
-                        fi
-                    fi
-                    if [[ docker stop flask-app ]]; then
-                        docker rm flask-app
-                    else
-                        if [[ docker rm flask-app ]]; then
-                            sleep 1
-                        else
-                            sleep 1
-                        fi
-                    fi
+                    docker stop mysql && (docker rm mysql) || (docker rm mysql $$ sleep 1 || sleep 1)
+                    docker stop mynginx && (docker rm mynginx) || (docker rm mynginx $$ sleep 1 || sleep 1)
+                    docker stop flask-app && (docker rm flask-app) || (docker rm flask-app $$ sleep 1 || sleep 1)
                     docker image pull juber81/mynginx
                     docker image pull juber81/flask-app
                     docker image pull juber81/mysql
