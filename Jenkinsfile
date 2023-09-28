@@ -4,21 +4,36 @@ pipeline{
             stage('Build Images'){
                 steps{
                     sh '''
-                    echo "Build Images"
+                    docker build -t juber81/mysql:latest ./db
+                    docker build -t juber81/mysql:${BUILD_NUMBER} ./db
+                    docker build -t juber81/flask-app:latest ./flask-app
+                    docker build -t juber81/flask-app:${BUILD_NUMBER} ./flask-app
+                    docker build -t juber81/mynginx:latest ./nginx
+                    docker build -t juber81/mynginx:${BUILD_NUMBER} ./nginx
                     '''
                 }
             }
             stage('Push Images'){
                 steps{
                     sh '''
-                    echo "Push Images"
+                    docker push -t juber81/mysql
+                    docker push -t juber81/mysql:${BUILD_NUMBER}
+                    docker push -t juber81/flask-app:latest
+                    docker push -t juber81/flask-app:${BUILD_NUMBER}
+                    docker push -t juber81/mynginx:latest
+                    docker push -t juber81/mynginx:${BUILD_NUMBER}
                     '''
                 }
             }
             stage('Cleanup Jenkins'){
                 steps{
                     sh '''
-                    echo "Cleanup Jenkins"
+                    docker rmi -t juber81/mysql
+                    docker rmi -t juber81/mysql:${BUILD_NUMBER}
+                    docker rmi -t juber81/flask-app:latest
+                    docker rmi -t juber81/flask-app:${BUILD_NUMBER}
+                    docker rmi -t juber81/mynginx:latest
+                    docker rmi -t juber81/mynginx:${BUILD_NUMBER}
                     '''
                 }
             }
