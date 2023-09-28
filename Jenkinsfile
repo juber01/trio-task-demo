@@ -16,24 +16,24 @@ pipeline{
             stage('Push Images'){
                 steps{
                     sh '''
-                    docker push -t gcr.io/lbg-mea-14/ja-mysql
-                    docker push -t gcr.io/lbg-mea-14/ja-mysql:${BUILD_NUMBER}
-                    docker push -t gcr.io/lbg-mea-14/ja-flask-app:latest
-                    docker push -t gcr.io/lbg-mea-14/ja-flask-app:${BUILD_NUMBER}
-                    docker push -t gcr.io/lbg-mea-14/ja-mynginx:latest
-                    docker push -t gcr.io/lbg-mea-14/ja-mynginx:${BUILD_NUMBER}
+                    docker push gcr.io/lbg-mea-14/ja-mysql
+                    docker push gcr.io/lbg-mea-14/ja-mysql:${BUILD_NUMBER}
+                    docker push gcr.io/lbg-mea-14/ja-flask-app:latest
+                    docker push gcr.io/lbg-mea-14/ja-flask-app:${BUILD_NUMBER}
+                    docker push gcr.io/lbg-mea-14/ja-mynginx:latest
+                    docker push gcr.io/lbg-mea-14/ja-mynginx:${BUILD_NUMBER}
                     '''
                 }
             }
             stage('Cleanup Jenkins'){
                 steps{
                     sh '''
-                    docker rmi -t gcr.io/lbg-mea-14/ja-mysql
-                    docker rmi -t gcr.io/lbg-mea-14/ja-mysql:${BUILD_NUMBER}
-                    docker rmi -t gcr.io/lbg-mea-14/ja-flask-app:latest
-                    docker rmi -t gcr.io/lbg-mea-14/ja-flask-app:${BUILD_NUMBER}
-                    docker rmi -t gcr.io/lbg-mea-14ja-/mynginx:latest
-                    docker rmi -t gcr.io/lbg-mea-14/ja-mynginx:${BUILD_NUMBER}
+                    docker rmi gcr.io/lbg-mea-14/ja-mysql
+                    docker rmi gcr.io/lbg-mea-14/ja-mysql:${BUILD_NUMBER}
+                    docker rmi gcr.io/lbg-mea-14/ja-flask-app:latest
+                    docker rmi gcr.io/lbg-mea-14/ja-flask-app:${BUILD_NUMBER}
+                    docker rmi gcr.io/lbg-mea-14ja-/mynginx:latest
+                    docker rmi gcr.io/lbg-mea-14/ja-mynginx:${BUILD_NUMBER}
                     '''
                 }
             }
