@@ -4,7 +4,7 @@ pipeline{
             stage('On Jenkins Server'){
                 steps{
                     sh '''
-                    Echo "hello World"
+                    echo "hello World"
                     '''
                 }
             }
