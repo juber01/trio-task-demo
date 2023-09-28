@@ -12,7 +12,12 @@ pipeline{
                 steps{
                     sh '''
                     ssh -i "~/.ssh/id_rsa" jenkins@10.154.0.26 << EOF
-                    "docker stop $(docker ps -a -q)"
+                    docker stop mynginx
+                    docker stop mysql
+                    docker stop flask-app
+                    docker rm mynginx
+                    docker rm mysql
+                    docker rm flask-app
                     docker image pull juber81/mynginx
                     docker image pull juber81/flask-app
                     docker image pull juber81/mysql
