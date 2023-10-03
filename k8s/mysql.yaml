@@ -14,17 +14,17 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: mysql-pod
+  name: mysql
   labels:
-    app: mysql-pod
+    app: mysql
 spec:
   containers:
-  env:
-  - name: MYSQL_ROOT_PASSWORD
-    value: my-secret-pw
-  -name: MYSQL_DATABASE
-    value: flask-db
   - name: mysql-container
     image: gcr.io/lbg-mea-14/ja-mysql:latest
     ports:
     - containerPort: 3306
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: my-secret-pw
+    - name: MYSQL_DATABASE
+      value: flask-db
