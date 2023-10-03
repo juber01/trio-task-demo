@@ -11,33 +11,20 @@ spec:
     targetPort: 3306
   type: ClusterIP
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  name: mysql-deployment
+  name: mysql-pod
   labels:
-    app: mysql
+    app: mysql-pod
 spec:
-  replicas: 5
-  selector:
-    matchLabels:
-      app: mysql
-  strategy:
-    rollingUpdate:
-      maxSurge: 20%
-      maxUnavailable: 20%
-  template:
-    metadata:
-      labels:
-        app: mysql
-    spec:
-      containers:
-      env:
-      - name: MYSQL_ROOT_PASSWORD
-        value: my-secret-pw
-      -name: MYSQL_DATABASE
-        value: flask-db
-      - name: mysql-container
-        image: gcr.io/lbg-mea-14/ja-mysql:latest
-        ports:
-        - containerPort: 3306
+  containers:
+  env:
+  - name: MYSQL_ROOT_PASSWORD
+    value: my-secret-pw
+  -name: MYSQL_DATABASE
+    value: flask-db
+  - name: mysql-container
+    image: gcr.io/lbg-mea-14/ja-mysql:latest
+    ports:
+    - containerPort: 3306
