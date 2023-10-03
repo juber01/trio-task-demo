@@ -4,9 +4,6 @@ FROM mysql:5.7
 
 # Add a database and root password
 # For hints on how to do this, consult the mysql 5.7 image documentation
-ENV MYSQL_DATABASE="flask-db"
-
-ENV MYSQL_ROOT_PASSWORD="my-secret-pw"
 
 # Add the content of the .sql file to your image
 COPY CreateTable.sql docker-entrypoint-initdb.d/
