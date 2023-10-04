@@ -1,28 +1,21 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
-spec:
-  replicas: 10
-  selector:
-    matchLabels:
-      app: nginx
-  strategy:
-    rollingUpdate:
-      maxSurge: 20%
-      maxUnavailable: 25%
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx-container
-        image: juber81/trio-nginx:latest
-        ports:
-        - containerPort: 80 
+  name: nginx-config
+data:
+  nginx.conf: |
+    events {}
+    http {
+        server {
+            listen 80;
+            location / {
+                proxy_pass http://flask-app:5500;
+            }
+            location /hello {
+                return 200 "Hello World";
+            }
+        }
+    }
 ---
 apiVersion: v1
 kind: Service
@@ -36,3 +29,37 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    rollingUpdate:
+      maxSurge: 20%
+      maxUnavailable: 20%
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      volumes:
+      - name: nginx-config-vol
+        configMap:
+          name: nginx-config
+      containers:
+      - name: nginx-container
+        image: nginx:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts: 
+        - name: nginx-config-vol
+          mountPath: /etc/nginx

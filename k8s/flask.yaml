@@ -23,6 +23,17 @@ spec:
         image: juber81/trio-flask:latest
         ports:
         - containerPort: 5000
+        env:
+        - name: MYSQLPW
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials 
+              key: MYSQL_ROOT_PASSWORD       
+        - name: DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials 
+              key: MYSQL_DATABASE 
 ---
 apiVersion: v1
 kind: Service
