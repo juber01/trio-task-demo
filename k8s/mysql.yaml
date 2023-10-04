@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: mysql-container
-    image: juber81/trio-mysql:latest
+    image: juber81/trio-db:latest
     ports:
     - containerPort: 3306
     env:
